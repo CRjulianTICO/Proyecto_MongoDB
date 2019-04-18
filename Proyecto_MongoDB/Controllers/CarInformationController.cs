@@ -10,6 +10,8 @@ using System.Web;
 using MongoDB.Bson;
 using MongoDB.Driver.Builders;
 using Proyecto_MongoDB.Models;
+using MongoDB.Driver;
+using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
 
 namespace Proyecto_MongoDB.Controllers
 {
@@ -66,7 +68,44 @@ namespace Proyecto_MongoDB.Controllers
             return View(carDetails);
         }
 
+        // GET: Carinformation/Edit/5  
+        public ActionResult Edit(string id)
+        {
+            var document = dbContext.database.GetCollection<CarModel>("CarModel");
 
+            var carDetailscount = document.FindAs<CarModel>(Query.EQ("_id", new ObjectId(id))).Count();
+
+            if (carDetailscount > 0)
+            {
+                var carObjectid = Query<CarModel>.EQ(p => p.Id, new ObjectId(id));
+
+                var carDetail = dbContext.database.GetCollection<CarModel>("CarModel").FindOne(carObjectid);
+
+                return View(carDetail);
+            }
+            return RedirectToAction("Index");
+        }
+
+        // POST: Carinformation/Edit/5  
+        [HttpPost]
+        public ActionResult Edit(string id, CarModel carmodel)
+        {
+            try
+            {
+                carmodel.Id = new ObjectId(id);
+                //Mongo Query  
+                var CarObjectId = Query<CarModel>.EQ(p => p.Id, new ObjectId(id));
+                // Document Collections  
+                var collection = dbContext.database.GetCollection<CarModel>("CarModel");
+                // Document Update which need Id and Data to Update  
+                var result = collection.Update(CarObjectId, Update.Replace(carmodel), UpdateFlags.None);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
         /*
                 // GET: api/CarInformation
                 public IEnumerable<string> Get()
