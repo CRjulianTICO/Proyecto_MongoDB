@@ -66,7 +66,7 @@
                 @Html.DisplayFor(modelItem => item.Placa)
             </td>
             <td>
-                @Html.ActionLink("Comprar", "Index", "ListaComprados", new { @IDCarro = item.Id, @NombreComprador = "TEST" }   ,new { @class = "btn btn-default" })
+                @Html.ActionLink("Comprar", "Create", "ListaComprados", new { @IDCarro = item.Id, @NombreComprador = "TEST" }   ,new { @class = "btn btn-default" })
             </td>
         </tr>
     }

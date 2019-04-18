@@ -18,6 +18,10 @@ namespace Proyecto_MongoDB.Controllers
     public class ListaCompradosController : Controller
     {
         MongoContext dbContext;
+        public ListaCompradosController()
+        {
+            dbContext = new MongoContext();
+        }
 
         // GET: USUARIOs
         public ActionResult Index()
@@ -29,23 +33,23 @@ namespace Proyecto_MongoDB.Controllers
             
         }
 
-        // GET: InformacionCar/Create
+
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: InformacionCar/Create
+
         [HttpPost]
-        public ActionResult Create(ListaCompradosModel listacompra)
+        public ActionResult Create(ListaCompradosModel listacompra, String IDCarro, String NombreComprador)
         {
             try
             {
                 //Crea el la coleccion en la base de datos y so esta creada crea solo la instancia
                 var document = dbContext.database.GetCollection<BsonDocument>("ListaCompradosModel");
 
-                //Se crea un query que filtre que no hayan repetidos basandose en el nombre y la pl
-                var query = Query.And(Query.EQ("NombreComprador", listacompra.NombreComprador), Query.EQ("IDCarro", listacompra.IDCarro));
+                //Se crea un query que filtre que no hayan repetidos basandose en el nombre
+                var query = Query.And(Query.EQ("IDCarro", listacompra.IDCarro));
 
                 //Cuenta los resultados del Query (la consulta)
                 var count = document.FindAs<ListaCarrosViewModel>(query).Count();
@@ -57,7 +61,7 @@ namespace Proyecto_MongoDB.Controllers
                 }
                 else
                 {
-                    ViewBag.Message = "Carro ya essta comprado";
+                    ViewBag.Message = "Carro ya esta comprado";
                     return View("Create", listacompra);
                 }
 

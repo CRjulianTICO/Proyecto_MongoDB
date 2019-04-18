@@ -18,7 +18,10 @@ namespace Proyecto_MongoDB.Controllers
     public class ListaController : Controller
     {
         MongoContext dbContext;
-
+        public ListaController()
+        {
+            dbContext = new MongoContext();
+        }
         // GET: USUARIOs
         public ActionResult Index()
         {
