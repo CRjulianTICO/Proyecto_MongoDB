@@ -13,7 +13,7 @@ namespace Proyecto_MongoDB.Models
     {
         
         
-        [Key]
+        //[Key]
         [BsonId]
         public ObjectId Id { get; set; }
 

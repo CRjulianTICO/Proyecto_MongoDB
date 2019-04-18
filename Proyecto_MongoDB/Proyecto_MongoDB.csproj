@@ -282,6 +282,9 @@
     <Content Include="Views\CarInformation\View.cshtml" />
     <Content Include="Views\InformacionCar\Create.cshtml" />
     <Content Include="Views\InformacionCar\Index.cshtml" />
+    <Content Include="Views\InformacionCar\Details.cshtml" />
+    <Content Include="Views\InformacionCar\Edit.cshtml" />
+    <Content Include="Views\InformacionCar\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
