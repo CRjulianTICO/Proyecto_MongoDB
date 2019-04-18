@@ -13,6 +13,14 @@ namespace Proyecto_MongoDB
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            
+            routes.MapRoute(
+                name: "Index",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "InformacionCar", action = "Index", id = UrlParameter.Optional }
+            );
+            
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
