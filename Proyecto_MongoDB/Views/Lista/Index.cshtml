@@ -1,0 +1,73 @@
+﻿@model Proyecto_MongoDB.Models.ListaCarrosViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    Carros disponibles
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Color
+        </th>
+        <th>
+            Precio
+        </th>
+        <th>
+            Cilindraje
+        </th>
+        <th>
+           NoRegistracion
+        </th>
+        <th>
+            DiaRegistracion
+        </th>
+        <th>
+            Modelo
+        </th>
+        <th>
+            Placa
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.ListaCarros)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cilindraje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoRegistracion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaRegistracion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Placa)
+            </td>
+            <td>
+                @Html.ActionLink("Comprar", "Index", "ListaComprados", new { @IDCarro = item.Id, @NombreComprador = "TEST" }   ,new { @class = "btn btn-default" })
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Proyecto_MongoDB.Models.ListaCompradosModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreComprador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDCarro)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreComprador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDCarro)
+        </td>
+        <td>
+
+        </td>
+    </tr>
+}
+
+</table>

@@ -211,11 +211,15 @@
     <Compile Include="Controllers\CarInformationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformacionCarController.cs" />
+    <Compile Include="Controllers\ListaCompradosController.cs" />
+    <Compile Include="Controllers\ListaController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ListaCompradosModel.cs" />
+    <Compile Include="Models\ListaCarrosViewModel.cs" />
     <Compile Include="Models\CarModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -282,6 +286,9 @@
     <Content Include="Views\CarInformation\View.cshtml" />
     <Content Include="Views\InformacionCar\Create.cshtml" />
     <Content Include="Views\InformacionCar\Index.cshtml" />
+    <Content Include="Views\Lista\Index.cshtml" />
+    <Content Include="Views\ListaComprados\Index.cshtml" />
+    <Content Include="Views\ListaComprados\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
