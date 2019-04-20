@@ -66,7 +66,8 @@
                 @Html.DisplayFor(modelItem => item.Placa)
             </td>
             <td>
-                @Html.ActionLink("Comprar", "Create", "ListaComprados", new { @IDCarro = item.Id, @NombreComprador = "TEST" }   ,new { @class = "btn btn-default" })
+                @Html.ActionLink("Comprar", "Create", "ListaComprados", new { @IDCarro = item.Id, @NombreComprador = "TEST" }, new { @class = "btn btn-default" })
+                @{/* Page.CurrentUser talvez sirva para conseguir el nombre del usuario que esta conectado*/}
             </td>
         </tr>
     }
