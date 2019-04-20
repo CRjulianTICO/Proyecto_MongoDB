@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "Create";
+
+
+    ViewBag.DefaultNombreComprador = Request["NombreComprador"];
+
+    ViewBag.DefaultIDCarro = Request["IDCarro"];
 }
 
 <h2>Create</h2>
@@ -17,7 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NombreComprador, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NombreComprador, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.NombreComprador, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.DefaultNombreComprador, disabled = "disabled" } })
                 @Html.ValidationMessageFor(model => model.NombreComprador, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -25,14 +30,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IDCarro, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IDCarro, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.IDCarro, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.DefaultIDCarro, disabled = "disabled" } })
                 @Html.ValidationMessageFor(model => model.IDCarro, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Comprar" class="btn btn-default" />
             </div>
         </div>
     </div>
