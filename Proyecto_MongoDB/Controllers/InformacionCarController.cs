@@ -76,7 +76,7 @@ namespace Proyecto_MongoDB.Controllers
                 var document = dbContext.database.GetCollection<BsonDocument>("CarModel");
 
                 //Se crea un query que filtre que no hayan repetidos basandose en el nombre y la pl
-                var query = Query.And(Query.EQ("Nombre", collection.Nombre), Query.EQ("Placa", collection.Placa));
+                var query = Query.And(Query.EQ("Marca", collection.Marca), Query.EQ("Placa", collection.Placa));
 
                 //Cuenta los resultados del Query (la consulta)
                 var count = document.FindAs<CarModel>(query).Count();

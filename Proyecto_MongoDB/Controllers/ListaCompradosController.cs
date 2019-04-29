@@ -132,18 +132,6 @@ namespace Proyecto_MongoDB.Controllers
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         public String nombreCarro(String id)
         {
             String nombre;

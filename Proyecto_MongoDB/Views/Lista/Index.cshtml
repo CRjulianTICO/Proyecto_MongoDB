@@ -12,10 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            Nombre
+            Marca
         </th>
         <th>
-            Color
+            Tipo
         </th>
         <th>
             Precio
@@ -24,7 +24,7 @@
             Cilindraje
         </th>
         <th>
-           NoRegistracion
+            NoRegistracion
         </th>
         <th>
             DiaRegistracion
@@ -40,35 +40,35 @@
 
     @foreach (var item in Model.ListaCarros)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Precio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cilindraje)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NoRegistracion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaRegistracion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modelo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Placa)
-            </td>
-            <td>
-                @Html.ActionLink("Comprar", "Create", "ListaComprados", new { @IDCarro = item.Id, @NombreComprador = "TEST" }, new { @class = "btn btn-default" })
-                @{/* Page.CurrentUser talvez sirva para conseguir el nombre del usuario que esta conectado*/}
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cilindraje)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoRegistracion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiaRegistracion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modelo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Placa)
+        </td>
+        <td>
+            @Html.ActionLink("Comprar", "Create", "ListaComprados", new { @IDCarro = item.Id, @NombreComprador = User.Identity.Name }, new { @class = "btn btn-default" })
+            @{/* Page.CurrentUser talvez sirva para conseguir el nombre del usuario que esta conectado*/}
+        </td>
+    </tr>
     }
 </table>

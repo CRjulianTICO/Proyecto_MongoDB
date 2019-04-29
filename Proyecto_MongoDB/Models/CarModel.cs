@@ -17,13 +17,13 @@ namespace Proyecto_MongoDB.Models
         [BsonId]
         public ObjectId Id { get; set; }
 
-        [BsonElement("Nombre")]
-        public String Nombre { get; set; }
+        [BsonElement("Marca")]
+        public String Marca { get; set; }
 
 
 
-        [BsonElement("Color")]
-        public String Color { get; set; }
+        [BsonElement("Tipo")]
+        public String Tipo { get; set; }
 
 
 
@@ -43,7 +43,7 @@ namespace Proyecto_MongoDB.Models
 
         
         [BsonElement("DiaRegistracion")]
-        public String DiaRegistracion { get; set; }
+        public DateTime DiaRegistracion { get; set; }
 
 
 
@@ -54,7 +54,6 @@ namespace Proyecto_MongoDB.Models
 
         [BsonElement("Placa")]
         public String Placa { get; set; }
-
 
     }
 }
