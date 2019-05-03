@@ -73,26 +73,17 @@
         <dd>
             @Html.DisplayFor(model => model.Placa)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.ImageId)
+            @Html.DisplayNameFor(model => model.Imagen)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ImageId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.tieneImagen)
-        </dt>
-
-        <dd>
-            <img src="@Url.Action("Imagen", "Imagenes", new { imageId = Model.ImageId})" />
+            @Html.DisplayFor(model => model.Imagen)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { @id = Model.Id }, new { @class = "btn btn-default" }) |
+    @Html.ActionLink("Edit", "Edit", "InformacionCar", new { @id = Model.Id }, new { @class = "btn btn-default" }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

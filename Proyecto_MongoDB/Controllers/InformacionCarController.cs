@@ -1,10 +1,12 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
+using MongoDB.Driver.GridFS;
 using Proyecto_MongoDB.App_Start;
 using Proyecto_MongoDB.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,15 +16,132 @@ namespace Proyecto_MongoDB.Controllers
     public class InformacionCarController : Controller
     {
         MongoContext dbContext;
+        
         public InformacionCarController()
         {
             dbContext = new MongoContext();
         }
 
+        /*
+
+                [HttpPost]
+                public ActionResult Upload()
+                {
+                    if (Request.Files.Count > 0)
+                    {
+                        var file = Request.Files[0];
+
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            var fileName = Path.GetFileName(file.FileName);
+                            var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                            file.SaveAs(path);
+                        }
+                    }
+
+                    return RedirectToAction("UploadDocument");
+                }
+
+                [HttpPost]
+                public HttpPostedFileBase Upload()
+                {
+                    if (Request.Files.Count > 0)
+                    {
+                        var file = Request.Files[0];
+
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            var fileName = Path.GetFileName(file.FileName);
+                            var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                            file.SaveAs(path);
+                        }
+                    }
+
+                    return;
+                }
+        */
+
+
+        /*
+                CarModel carViewModel = new CarModel()
+                {
+                     Id = carDomain.Id
+            ,
+                    DailyRentalFee = carDomain.DailyRentalFee
+            ,
+                    Make = carDomain.Make
+            ,
+                    NumberOfDoors = carDomain.NumberOfDoors
+            ,
+                    ImageId = carDomain.ImageId
+                };*/
+
+
+
+        private void EliminarImagenCarro(CarModel car)
+        {
+            dbContext.database.GridFS.DeleteById(car.ImageId);
+            car.ImageId = string.Empty;
+            //var document = dbContext.database.GetCollection<BsonDocument>("CarModel");
+           // var result = document.Insert(car);
+        }
+
+
+        private void AgregarImagenCarro(HttpPostedFileBase file, CarModel car)
+        {
+            ObjectId imageId = ObjectId.GenerateNewId();
+            car.ImageId = imageId.ToString();
+
+            var document = dbContext.database.GetCollection<BsonDocument>("CarModel");
+            var result = document.Insert(car);
+            MongoGridFSCreateOptions createOptions = new MongoGridFSCreateOptions()
+            {
+                Id = imageId
+                ,
+                ContentType = file.ContentType
+            };
+            dbContext.database.GridFS.Upload(file.InputStream, file.FileName, createOptions);
+        }
+
+
+
+        
+
+        /*
+                public void prueba()
+                {//Forma default
+                    MongoGridFS gridFsDefault = dbContext.database.GridFS;
+
+                    //Forma custom para sobreecribir el gridfs deafult
+                    MongoGridFSSettings gridFSSettings = new MongoGridFSSettings();
+                    gridFSSettings.ChunkSize = 1024;
+
+                    MongoGridFS gridFsCustom = dbContext.database.GetGridFS(gridFSSettings);
+
+
+
+                    MongoCollection<BsonDocument> chunks = gridFsDefault.Chunks;
+
+
+
+
+                }
+                */
+
+
+
+
+
         // GET: InformacionCar
         public ActionResult Index()
         {
+
             var carDetails = dbContext.database.GetCollection<CarModel>("CarModel").FindAll().ToList();
+            foreach (var item in carDetails)
+            {
+                ViewBag.ImageId += item.ImageId;
+            }
+            
             return View(carDetails);
         }
 
@@ -68,7 +187,7 @@ namespace Proyecto_MongoDB.Controllers
 
         // POST: InformacionCar/Create
         [HttpPost]
-        public ActionResult Create(CarModel collection)
+        public ActionResult Create(CarModel collection, HttpPostedFileBase file)
         {
             try
             {
@@ -84,7 +203,8 @@ namespace Proyecto_MongoDB.Controllers
 
                 if (count == 0)
                 {
-                    var result = document.Insert(collection);
+                    //var result = document.Insert(collection);
+                    AgregarImagenCarro(file, collection);
                 }
                 else
                 {
@@ -133,9 +253,35 @@ namespace Proyecto_MongoDB.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+
+
+
+        private void ActualizarImagenCarro(HttpPostedFileBase file, CarModel car, String id)
+        {
+            ObjectId imageId = ObjectId.GenerateNewId();
+            car.ImageId = imageId.ToString();
+
+            // Se trae el documento de la coleccion 
+            var colleccion = dbContext.database.GetCollection<CarModel>("CarModel");
+            var CarObjectId = Query<CarModel>.EQ(p => p.Id, new ObjectId(id));
+            //Se actualiza el documento que tenga el id y el objeto que se esta actualizando
+            var resultado = colleccion.Update(CarObjectId, Update.Replace(car), UpdateFlags.None);
+
+
+            MongoGridFSCreateOptions createOptions = new MongoGridFSCreateOptions()
+            {
+                Id = imageId
+                ,
+                ContentType = file.ContentType
+            };
+            dbContext.database.GridFS.Upload(file.InputStream, file.FileName, createOptions);
+        }
+
         // POST: InformacionCar/Edit/5
         [HttpPost]
-        public ActionResult Edit(String id, CarModel carmodel)
+        public ActionResult Edit(String id, CarModel car, HttpPostedFileBase file)
         {
             try
             {
@@ -146,16 +292,36 @@ namespace Proyecto_MongoDB.Controllers
                 }
 
 
-                carmodel.Id = new ObjectId(id);
+
+                /*
+                    Car car = CarRentalContext.Cars.FindOneById(new ObjectId(id));
+                    if (!string.IsNullOrEmpty(car.ImageId))
+                    {
+                        DeleteCarImage(car);
+                    }
+                    AttachImageToCar(file, car);
+                 
+                 * */
+
+                car.Id = new ObjectId(id);
 
                 //Query de Mongo para traer el id del objeto que se esta pasando por parametro 
                 var CarObjectId = Query<CarModel>.EQ(p => p.Id, new ObjectId(id));
 
-                // Se trae el documento de la coleccion 
-                var colleccion = dbContext.database.GetCollection<CarModel>("CarModel");
-                 
-                //Se actualiza el documento que tenga el id y el objeto que se esta actualizando
-                var resultado = colleccion.Update(CarObjectId, Update.Replace(carmodel), UpdateFlags.None);
+                var carDetail = dbContext.database.GetCollection<CarModel>("CarModel").FindOne(CarObjectId);
+
+                
+
+                //String carId = CarObjectId.ToJson();
+
+                if (!string.IsNullOrEmpty(carDetail.ImageId))
+                {
+                    EliminarImagenCarro(carDetail);
+                }
+                ActualizarImagenCarro(file, car, id);
+
+
+              
 
                 return RedirectToAction("Index");
             }
@@ -164,6 +330,13 @@ namespace Proyecto_MongoDB.Controllers
                 return View();
             }
         }
+
+
+
+
+
+
+
 
         // GET: InformacionCar/Delete/5
         public ActionResult Delete(String id)

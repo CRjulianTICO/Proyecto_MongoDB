@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Proyecto_MongoDB.Models.CarModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cilindraje)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoRegistracion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiaRegistracion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Placa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageId)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cilindraje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoRegistracion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaRegistracion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Placa)
+            </td>
+            <td>
+
+                <img src="@Url.Action("Imagen", "Imagenes", new { imageId = item.ImageId})" />
+
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "InformacionCar", new { @id = item.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Details", "Details", "InformacionCar", new { @id = item.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Delete", "Delete", "InformacionCar", new { @id = item.Id }, new { @class = "btn btn-default" })
+            </td>
+        </tr>
+    }
+
+</table>
