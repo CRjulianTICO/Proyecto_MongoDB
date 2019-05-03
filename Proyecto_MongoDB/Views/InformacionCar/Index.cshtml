@@ -5,7 +5,7 @@
 }
 
 <h2>Index</h2>
-<h3 class="text-danger">@ViewBag.Message</h3>
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -35,6 +35,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Placa)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageId)
+        </th>
         <th></th>
     </tr>
 
@@ -63,6 +66,11 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Placa)
+        </td>
+        <td>
+            
+             <img src="@Url.Action("Imagen", "Imagenes", new { imageId = item.ImageId})" />
+            
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", "InformacionCar", new { @id = item.Id }, new { @class = "btn btn-default" })

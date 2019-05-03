@@ -55,5 +55,20 @@ namespace Proyecto_MongoDB.Models
         [BsonElement("Placa")]
         public String Placa { get; set; }
 
+
+        [BsonElement("ImageId")]
+        public String ImageId { get; set; }
+
+
+
+
+        public bool tieneImagen
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(ImageId);
+            }
+        }
+
     }
 }
