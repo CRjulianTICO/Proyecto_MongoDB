@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Vehículos</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Registrar nuevo vehículo", "Create")
 </p>
 <table class="table">
     <tr>
@@ -41,43 +41,58 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Marca)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tipo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Precio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cilindraje)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NoRegistracion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiaRegistracion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Modelo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Placa)
-        </td>
-        <td>
-            
-             <img src="@Url.Action("Imagen", "Imagenes", new { imageId = item.ImageId})" />
-            
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", "InformacionCar", new { @id = item.Id }, new { @class = "btn btn-default" })
-            @Html.ActionLink("Details", "Details", "InformacionCar", new { @id = item.Id }, new { @class = "btn btn-default" })
-            @Html.ActionLink("Delete", "Delete", "InformacionCar", new { @id = item.Id }, new { @class = "btn btn-default" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cilindraje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoRegistracion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaRegistracion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Placa)
+            </td>
+            <td>
+
+                <img src="@Url.Action("Imagen", "Imagenes", new { imageId = item.ImageId})" style="width:60px;height:40px;" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("Editar", "Edit", "InformacionCar", new { @id = item.Id }, new { @class = "btn btn-default" })
+            </td>
+            <td>
+                @Html.ActionLink("Detalles", "Details", "InformacionCar", new { @id = item.Id }, new { @class = "btn btn-default" })
+            </td>
+            <td>
+                @Html.ActionLink("Eliminar", "Delete", "InformacionCar", new { @id = item.Id }, new { @class = "btn btn-default" })
+            </td>
+            <td>
+                @Html.ActionLink("Ver vehículo", "Imagen", "Imagenes", new { imageId = item.ImageId }, new { @class = "btn btn-default" })
+            </td>
+        </tr>
+        <tr>
+            <td><br></td>
+        </tr>
+        <tr>
+            <td><br></td>
+        </tr>
+    }
 
 </table>
