@@ -12,6 +12,7 @@ using Proyecto_MongoDB.App_Start;
 
 namespace Proyecto_MongoDB.Controllers
 {
+    [Authorize]
     public class ListaCompradosController : Controller
     {
 

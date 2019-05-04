@@ -11,10 +11,10 @@ using MongoDB.Bson;
 using MongoDB.Driver.Builders;
 using Proyecto_MongoDB.Models;
 using MongoDB.Driver;
-using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
 
 namespace Proyecto_MongoDB.Controllers
 {
+    [System.Web.Mvc.Authorize]
     public class ListaController : Controller
     {
         MongoContext dbContext;

@@ -13,6 +13,8 @@ using System.Web.Mvc;
 
 namespace Proyecto_MongoDB.Controllers
 {
+
+    [Authorize]
     public class InformacionCarController : Controller
     {
         MongoContext dbContext;
@@ -92,8 +94,10 @@ namespace Proyecto_MongoDB.Controllers
             ObjectId imageId = ObjectId.GenerateNewId();
             car.ImageId = imageId.ToString();
 
+
             var document = dbContext.database.GetCollection<BsonDocument>("CarModel");
             var result = document.Insert(car);
+
             MongoGridFSCreateOptions createOptions = new MongoGridFSCreateOptions()
             {
                 Id = imageId
@@ -105,7 +109,7 @@ namespace Proyecto_MongoDB.Controllers
 
 
 
-        
+
 
         /*
                 public void prueba()
@@ -130,7 +134,7 @@ namespace Proyecto_MongoDB.Controllers
 
 
 
-
+#region Index
 
         // GET: InformacionCar
         public ActionResult Index()
@@ -145,6 +149,10 @@ namespace Proyecto_MongoDB.Controllers
             return View(carDetails);
         }
 
+        #endregion
+
+
+        #region Detalles
         // GET: InformacionCar/Details/5
         public ActionResult Details(String id)
         {
@@ -178,13 +186,15 @@ namespace Proyecto_MongoDB.Controllers
 
           
         }
-
+        #endregion
         // GET: InformacionCar/Create
         public ActionResult Create()
         {
             return View();
         }
 
+
+        #region Create
         // POST: InformacionCar/Create
         [HttpPost]
         public ActionResult Create(CarModel collection, HttpPostedFileBase file)
@@ -219,7 +229,12 @@ namespace Proyecto_MongoDB.Controllers
                 return View();
             }
         }
+        #endregion
 
+
+
+
+        #region EDitar
         // GET: InformacionCar/Edit/5
         public ActionResult Edit(String id)
         {
@@ -254,7 +269,7 @@ namespace Proyecto_MongoDB.Controllers
         }
 
 
-
+        #endregion
 
 
 
@@ -265,6 +280,7 @@ namespace Proyecto_MongoDB.Controllers
 
             // Se trae el documento de la coleccion 
             var colleccion = dbContext.database.GetCollection<CarModel>("CarModel");
+
             var CarObjectId = Query<CarModel>.EQ(p => p.Id, new ObjectId(id));
             //Se actualiza el documento que tenga el id y el objeto que se esta actualizando
             var resultado = colleccion.Update(CarObjectId, Update.Replace(car), UpdateFlags.None);
